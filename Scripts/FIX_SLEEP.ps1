@@ -1,10 +1,10 @@
-# ============================================================================
-# Alienware P51E Sleep/Wake Fix Script
+﻿# ============================================================================
+# System Sleep/Wake Fix Script
 # Run this in PowerShell (Admin)
 # ============================================================================
 
 Write-Host "==================================================" -ForegroundColor Cyan
-Write-Host "Alienware P51E Sleep/Wake Repair" -ForegroundColor Cyan
+Write-Host "System Sleep/Wake Repair" -ForegroundColor Cyan
 Write-Host "==================================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -69,3 +69,4 @@ Write-Host "4. Restart the laptop" -ForegroundColor White
 Write-Host "5. Test sleep/wake functionality" -ForegroundColor White
 Write-Host ""
 pause
+

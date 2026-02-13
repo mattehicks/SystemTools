@@ -1,26 +1,26 @@
-# ============================================================================
-# MASTER REPAIR SCRIPT - Alienware P51E Sleep/Wake Fix
+﻿# ============================================================================
+# MASTER REPAIR SCRIPT - System Sleep/Wake Fix
 # Runs all repairs in correct order with safety checks
 # ============================================================================
 
 $ErrorActionPreference = "Stop"
 
-Write-Host "╔════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║   ALIENWARE P51E - COMPLETE SLEEP/WAKE REPAIR SUITE      ║" -ForegroundColor Cyan
-Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—" -ForegroundColor Cyan
+Write-Host "â•‘   System - COMPLETE SLEEP/WAKE REPAIR SUITE      â•‘" -ForegroundColor Cyan
+Write-Host "â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Cyan
 Write-Host ""
 
 # Admin check
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     Write-Host "ERROR: Must run as Administrator!" -ForegroundColor Red
-    Write-Host "Right-click PowerShell → Run as Administrator" -ForegroundColor Yellow
+    Write-Host "Right-click PowerShell â†’ Run as Administrator" -ForegroundColor Yellow
     pause
     exit
 }
 
 Write-Host "WHAT THIS WILL DO:" -ForegroundColor Yellow
 Write-Host "0. Check WiFi adapters (NETGEAR + TP-Link)" -ForegroundColor White
-Write-Host "1. Disable broken Killer WiFi + Realtek Ethernet (Win11→Win10 casualties)" -ForegroundColor White
+Write-Host "1. Disable broken Killer WiFi + Realtek Ethernet (Win11â†’Win10 casualties)" -ForegroundColor White
 Write-Host "2. Fix power plan settings (disable hybrid sleep, USB suspend, etc.)" -ForegroundColor White
 Write-Host "3. Remove 119 'Unknown' USB devices (protecting your WiFi dongles)" -ForegroundColor White
 Write-Host "4. Disable USB wake capability" -ForegroundColor White
@@ -35,9 +35,9 @@ if ($continue -ne "Y" -and $continue -ne "y") {
 }
 
 Write-Host ""
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Cyan
 Write-Host "PHASE 0: Check WiFi Adapters" -ForegroundColor Cyan
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Cyan
 Write-Host ""
 
 & "$PSScriptRoot\CHECK_WIFI_ADAPTERS.ps1"
@@ -48,7 +48,7 @@ $tplink = Get-PnpDevice | Where-Object {$_.InstanceId -match 'VID_2357&PID_011E'
 
 if ($tplink.Status -ne 'OK') {
     Write-Host ""
-    Write-Host "⚠ WARNING: TP-Link adapter not fully working" -ForegroundColor Yellow
+    Write-Host "âš  WARNING: TP-Link adapter not fully working" -ForegroundColor Yellow
     Write-Host "You can continue, but you may need to fix the driver later." -ForegroundColor White
     Write-Host ""
     $continueAnyway = Read-Host "Continue anyway? (Y/N)"
@@ -59,25 +59,25 @@ if ($tplink.Status -ne 'OK') {
 }
 
 Write-Host ""
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Cyan
 Write-Host "PHASE 1: Disable Broken Hardware" -ForegroundColor Cyan
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Cyan
 Write-Host ""
 
 & "$PSScriptRoot\DISABLE_BROKEN_HARDWARE.ps1"
 
 Write-Host ""
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Cyan
 Write-Host "PHASE 2: Fix Power Configuration" -ForegroundColor Cyan  
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Cyan
 Write-Host ""
 
 & "$PSScriptRoot\FIX_SLEEP.ps1"
 
 Write-Host ""
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Cyan
 Write-Host "PHASE 3: USB Device Cleanup" -ForegroundColor Cyan
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "IMPORTANT: About to clean USB devices" -ForegroundColor Yellow
 Write-Host "You should unplug ALL external USB except your WiFi dongles:" -ForegroundColor Red
@@ -103,9 +103,9 @@ if ($usbReady -ne "Y" -and $usbReady -ne "y") {
 & "$PSScriptRoot\USB_CLEANUP.ps1"
 
 Write-Host ""
-Write-Host "╔════════════════════════════════════════════════════════════╗" -ForegroundColor Green
-Write-Host "║              ALL REPAIRS COMPLETED!                        ║" -ForegroundColor Green
-Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Green
+Write-Host "â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—" -ForegroundColor Green
+Write-Host "â•‘              ALL REPAIRS COMPLETED!                        â•‘" -ForegroundColor Green
+Write-Host "â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•" -ForegroundColor Green
 Write-Host ""
 Write-Host "NEXT STEP: Restart your laptop" -ForegroundColor Yellow
 Write-Host ""
@@ -128,3 +128,4 @@ if ($restart -eq "Y" -or $restart -eq "y") {
     Write-Host "Remember to restart before testing!" -ForegroundColor Yellow
     pause
 }
+
