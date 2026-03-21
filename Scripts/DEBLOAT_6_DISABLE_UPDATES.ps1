@@ -1,13 +1,13 @@
-# DISABLE WINDOWS UPDATE COMPLETELY
+﻿# DISABLE WINDOWS UPDATE COMPLETELY
 # Phase 6: Stop forced updates permanently
 # Run with TrustedInstaller
 
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host "PHASE 6: DISABLE WINDOWS UPDATE" -ForegroundColor Red
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host ""
-Write-Host "⚠️  WARNING: This disables automatic security updates!" -ForegroundColor Yellow
-Write-Host "⚠️  You will need to manually update Windows periodically" -ForegroundColor Yellow
+Write-Host "WARNING: This disables automatic security updates!" -ForegroundColor Yellow
+Write-Host "You will need to manually update Windows periodically" -ForegroundColor Yellow
 Write-Host ""
 $confirm = Read-Host "Type 'DISABLE' to confirm"
 
@@ -42,7 +42,7 @@ foreach ($service in $updateServices) {
 Write-Host "  Disabling WaaSMedicSvc via registry..." -ForegroundColor Red
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /v Start /t REG_DWORD /d 4 /f | Out-Null
 
-Write-Host "✓ Update services disabled" -ForegroundColor Green
+Write-Host "Update services disabled" -ForegroundColor Green
 Write-Host ""
 
 # Method 2: Group Policy Registry Keys
@@ -64,7 +64,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v DisableWindo
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoRebootWithLoggedOnUsers /t REG_DWORD /d 1 /f | Out-Null
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v AUPowerManagement /t REG_DWORD /d 0 /f | Out-Null
 
-Write-Host "✓ Group policy configured" -ForegroundColor Green
+Write-Host "Group policy configured" -ForegroundColor Green
 Write-Host ""
 
 # Method 3: Disable Update Delivery Optimization
@@ -72,7 +72,7 @@ Write-Host "[3/5] Disabling delivery optimization..." -ForegroundColor Yellow
 Stop-Service DoSvc -Force -ErrorAction SilentlyContinue
 Set-Service DoSvc -StartupType Disabled -ErrorAction SilentlyContinue
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" /v DODownloadMode /t REG_DWORD /d 0 /f | Out-Null
-Write-Host "✓ Delivery optimization disabled" -ForegroundColor Green
+Write-Host "Delivery optimization disabled" -ForegroundColor Green
 Write-Host ""
 
 # Method 4: Set network as metered (prevents downloads over it)
@@ -90,9 +90,9 @@ foreach ($adapter in $adapters) {
         reg add $regPath /v WiFi /t REG_DWORD /d 2 /f | Out-Null
         reg add $regPath /v Ethernet /t REG_DWORD /d 2 /f | Out-Null
         
-        Write-Host "  ✓ $($adapter.Name) set as metered" -ForegroundColor Green
+        Write-Host "$($adapter.Name) set as metered" -ForegroundColor Green
     } catch {
-        Write-Host "  ⚠ Could not set $($adapter.Name) as metered" -ForegroundColor Yellow
+        Write-Host "Could not set $($adapter.Name) as metered" -ForegroundColor Yellow
     }
 }
 Write-Host ""
@@ -116,21 +116,21 @@ foreach ($task in $updateTasks) {
     Write-Host "  DISABLED: $task" -ForegroundColor Red
 }
 
-Write-Host "✓ Update tasks disabled" -ForegroundColor Green
+Write-Host "Update tasks disabled" -ForegroundColor Green
 Write-Host ""
 
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host "WINDOWS UPDATE COMPLETELY DISABLED" -ForegroundColor Green
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host ""
 Write-Host "Methods applied:" -ForegroundColor Cyan
-Write-Host "  ✓ Update services disabled" -ForegroundColor White
-Write-Host "  ✓ Group policy configured" -ForegroundColor White
-Write-Host "  ✓ Delivery optimization disabled" -ForegroundColor White
-Write-Host "  ✓ Networks marked as metered" -ForegroundColor White
-Write-Host "  ✓ Scheduled tasks disabled" -ForegroundColor White
+Write-Host "Update services disabled" -ForegroundColor White
+Write-Host "Group policy configured" -ForegroundColor White
+Write-Host "Delivery optimization disabled" -ForegroundColor White
+Write-Host "Networks marked as metered" -ForegroundColor White
+Write-Host "Scheduled tasks disabled" -ForegroundColor White
 Write-Host ""
-Write-Host "⚠️  IMPORTANT:" -ForegroundColor Yellow
+Write-Host "IMPORTANT:" -ForegroundColor Yellow
 Write-Host "  - Windows will NOT auto-update" -ForegroundColor Red
 Write-Host "  - Security patches will NOT install automatically" -ForegroundColor Red
 Write-Host "  - You MUST manually update when needed" -ForegroundColor Red

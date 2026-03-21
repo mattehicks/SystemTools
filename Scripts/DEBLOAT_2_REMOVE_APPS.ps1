@@ -1,9 +1,9 @@
-# PHASE 2: REMOVE BLOATWARE APPS
+﻿# PHASE 2: REMOVE BLOATWARE APPS
 # Run with: NSudoLC.exe -U:T -P:E powershell -File DEBLOAT_2_REMOVE_APPS.ps1
 
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host "PHASE 2: REMOVE BLOATWARE APPS" -ForegroundColor Red
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host ""
 
 # Apps to KEEP (whitelist)
@@ -16,7 +16,7 @@ $keepApps = @(
 )
 
 Write-Host "Apps that will be KEPT:" -ForegroundColor Green
-$keepApps | ForEach-Object { Write-Host "  ✓ $_" -ForegroundColor White }
+$keepApps | ForEach-Object { Write-Host "   $_" -ForegroundColor White }
 Write-Host ""
 
 $confirm = Read-Host "Remove all other apps? (Type 'YES' to confirm)"
@@ -66,9 +66,9 @@ foreach ($app in $apps) {
 }
 
 Write-Host ""
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host "BLOATWARE REMOVAL COMPLETE!" -ForegroundColor Green
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host ""
 Write-Host "Removed: $removed apps" -ForegroundColor Red
 Write-Host "Kept:    $kept apps" -ForegroundColor Green

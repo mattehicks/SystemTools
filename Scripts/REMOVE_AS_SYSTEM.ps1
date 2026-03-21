@@ -1,4 +1,4 @@
-# BRUTE FORCE GHOST DEVICE REMOVAL - SYSTEM LEVEL
+﻿# BRUTE FORCE GHOST DEVICE REMOVAL - SYSTEM LEVEL
 # This script runs removal commands as NT AUTHORITY\SYSTEM
 
 $devices = @(
@@ -13,15 +13,19 @@ foreach ($deviceId in $devices) {
     try {
         pnputil /remove-device "$deviceId" /force 2>$null
         if ($LASTEXITCODE -eq 0) {
-            Write-Host "✓ Removed: $deviceId" -ForegroundColor Green
+            Write-Host "Removed: $deviceId" -ForegroundColor Green
         } else {
-            Write-Host "✗ Failed: $deviceId" -ForegroundColor Red
+            Write-Host "Failed: $deviceId" -ForegroundColor Red
         }
     } catch {
-        Write-Host "✗ Error: $deviceId" -ForegroundColor Red
+        Write-Host "Error: $deviceId" -ForegroundColor Red
     }
 }
 
 Write-Host ""
 Write-Host "Remaining Unknown devices:" -ForegroundColor Cyan
 (Get-PnpDevice | Where-Object {$_.Status -eq 'Unknown' -or $_.Status -eq 'Error'}).Count
+
+Write-Host "" 
+Write-Host "Press any key to close..." -ForegroundColor Gray
+pause

@@ -1,19 +1,19 @@
-# ============================================================================
+﻿# ============================================================================
 # CLEAR ALL EVENT LOGS - Fresh Start for Tracking
 # WARNING: This deletes ALL Windows event logs!
 # Use this to get clean baseline before testing sleep/wake
 # ============================================================================
 
-Write-Host "╔════════════════════════════════════════════════════════════╗" -ForegroundColor Red
-Write-Host "║          CLEAR ALL WINDOWS EVENT LOGS                     ║" -ForegroundColor Red
-Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
+Write-Host "CLEAR ALL WINDOWS EVENT LOGS" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host ""
 
 # Admin check
 $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) {
     Write-Host "ERROR: Must run as Administrator!" -ForegroundColor Red
-    Write-Host "Right-click PowerShell → Run as Administrator" -ForegroundColor Yellow
+    Write-Host "Right-click PowerShell  Run as Administrator" -ForegroundColor Yellow
     pause
     exit
 }
@@ -48,9 +48,9 @@ if ($confirm2 -ne "DELETE") {
 }
 
 Write-Host ""
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "------------------------------------------------------------" -ForegroundColor Cyan
 Write-Host "Clearing Event Logs..." -ForegroundColor Yellow
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "------------------------------------------------------------" -ForegroundColor Cyan
 Write-Host ""
 
 # Get all logs
@@ -65,18 +65,18 @@ foreach ($log in $logs) {
     $logName = $log.LogName
     try {
         wevtutil.exe cl "$logName" 2>$null
-        Write-Host "  ✓ Cleared: $logName" -ForegroundColor Green
+        Write-Host "Cleared: $logName" -ForegroundColor Green
         $cleared++
     } catch {
-        Write-Host "  ✗ Failed: $logName" -ForegroundColor Red
+        Write-Host "Failed: $logName" -ForegroundColor Red
         $failed++
     }
 }
 
 Write-Host ""
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "------------------------------------------------------------" -ForegroundColor Cyan
 Write-Host "Log Clearing Complete" -ForegroundColor Green
-Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "------------------------------------------------------------" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Results:" -ForegroundColor Yellow
 Write-Host "  Total logs found: $totalLogs" -ForegroundColor White

@@ -1,9 +1,9 @@
-# KILL ALL SPYWARE - EXECUTION SCRIPT
+﻿# KILL ALL SPYWARE - EXECUTION SCRIPT
 # Run with TrustedInstaller: NSudoLC.exe -U:T -P:E powershell -File KILL_SPYWARE.ps1
 
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host "MICROSOFT SPYWARE TERMINATION" -ForegroundColor Red
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host ""
 
 $confirm = Read-Host "This will STOP ALL TELEMETRY. Type 'KILL' to proceed"
@@ -86,7 +86,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" /v DisabledBy
 # Location = OFF
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" /v DisableLocation /t REG_DWORD /d 1 /f >$null
 
-Write-Host "  ✓ Registry locked down" -ForegroundColor Green
+Write-Host "Registry locked down" -ForegroundColor Green
 
 Write-Host ""
 Write-Host "[3/7] Disabling scheduled telemetry tasks..." -ForegroundColor Yellow
@@ -155,12 +155,12 @@ foreach ($domain in $telemetryDomains) {
 }
 
 Add-Content -Path $hostsFile -Value $newEntries
-Write-Host "  ✓ Blocked $($telemetryDomains.Count) domains" -ForegroundColor Green
+Write-Host "Blocked $($telemetryDomains.Count) domains" -ForegroundColor Green
 
 Write-Host ""
 Write-Host "[5/7] Flushing DNS cache..." -ForegroundColor Yellow
 ipconfig /flushdns | Out-Null
-Write-Host "  ✓ DNS flushed" -ForegroundColor Green
+Write-Host "DNS flushed" -ForegroundColor Green
 
 Write-Host ""
 Write-Host "[6/7] Killing active telemetry processes..." -ForegroundColor Yellow
@@ -180,19 +180,19 @@ Set-Service UsoSvc -StartupType Disabled -ErrorAction SilentlyContinue
 # Disable Update Medic Service (hardcore)
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /v Start /t REG_DWORD /d 4 /f >$null
 
-Write-Host "  ✓ Windows Update disabled" -ForegroundColor Green
+Write-Host "Windows Update disabled" -ForegroundColor Green
 
 Write-Host ""
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host "SPYWARE TERMINATED" -ForegroundColor Green
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host ""
 Write-Host "What was killed:" -ForegroundColor Cyan
-Write-Host "  • 24 spyware services disabled" -ForegroundColor White
-Write-Host "  • 10 scheduled tasks disabled" -ForegroundColor White
-Write-Host "  • 22 telemetry domains blocked" -ForegroundColor White
-Write-Host "  • Registry locked down (telemetry = 0)" -ForegroundColor White
-Write-Host "  • Windows Update disabled" -ForegroundColor White
+Write-Host "24 spyware services disabled" -ForegroundColor White
+Write-Host "10 scheduled tasks disabled" -ForegroundColor White
+Write-Host "22 telemetry domains blocked" -ForegroundColor White
+Write-Host "Registry locked down (telemetry = 0)" -ForegroundColor White
+Write-Host "Windows Update disabled" -ForegroundColor White
 Write-Host ""
 Write-Host "RESTART REQUIRED for full effect" -ForegroundColor Yellow
 Write-Host ""
@@ -200,3 +200,7 @@ $restart = Read-Host "Restart now? (y/n)"
 if ($restart -eq 'y') {
     Restart-Computer -Force
 }
+
+Write-Host "" 
+Write-Host "Press any key to close..." -ForegroundColor Gray
+pause

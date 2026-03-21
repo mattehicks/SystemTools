@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 # DUAL WIFI ADAPTER FIX - Updated for both NETGEAR + TP-Link
 # Run this FIRST to get both adapters working before sleep fixes
 # ============================================================================
@@ -23,11 +23,11 @@ Write-Host ""
 $netgear = Get-PnpDevice | Where-Object {$_.InstanceId -match 'VID_0846&PID_9052'}
 Write-Host "[1/2] NETGEAR A6100 (Server network):" -ForegroundColor Cyan
 if ($netgear -and $netgear.Status -eq 'OK') {
-    Write-Host "      ✓ Working ($($netgear.Status))" -ForegroundColor Green
+    Write-Host "Working ($($netgear.Status))" -ForegroundColor Green
 } elseif ($netgear) {
-    Write-Host "      ✗ Status: $($netgear.Status)" -ForegroundColor Red
+    Write-Host "Status: $($netgear.Status)" -ForegroundColor Red
 } else {
-    Write-Host "      ✗ Not detected" -ForegroundColor Red
+    Write-Host "Not detected" -ForegroundColor Red
 }
 
 Write-Host ""
@@ -36,9 +36,9 @@ Write-Host ""
 $tplink = Get-PnpDevice | Where-Object {$_.InstanceId -match 'VID_2357&PID_011E'}
 Write-Host "[2/2] TP-Link Wireless Nano (Second network):" -ForegroundColor Cyan
 if ($tplink -and $tplink.Status -eq 'OK') {
-    Write-Host "      ✓ Working ($($tplink.Status))" -ForegroundColor Green
+    Write-Host "Working ($($tplink.Status))" -ForegroundColor Green
 } elseif ($tplink) {
-    Write-Host "      ⚠ Status: $($tplink.Status)" -ForegroundColor Yellow
+    Write-Host "Status: $($tplink.Status)" -ForegroundColor Yellow
     
     if ($tplink.Status -eq 'Error') {
         $problemCode = (Get-PnpDeviceProperty -InstanceId $tplink.InstanceId -KeyName 'DEVPKEY_Device_ProblemCode' -ErrorAction SilentlyContinue).Data
@@ -49,7 +49,7 @@ if ($tplink -and $tplink.Status -eq 'OK') {
             Start-Sleep -Seconds 2
             $tplink = Get-PnpDevice -InstanceId $tplink.InstanceId
         } elseif ($problemCode -eq 28) {
-            Write-Host "      ✗ Driver not installed (Problem Code 28)" -ForegroundColor Red
+            Write-Host "Driver not installed (Problem Code 28)" -ForegroundColor Red
             Write-Host ""
             Write-Host "      SOLUTION: Install TP-Link driver" -ForegroundColor Yellow
             Write-Host "      1. Visit: https://www.tp-link.com/support/download/" -ForegroundColor White
@@ -60,7 +60,7 @@ if ($tplink -and $tplink.Status -eq 'OK') {
         }
     }
 } else {
-    Write-Host "      ✗ Not detected - is it plugged in?" -ForegroundColor Red
+    Write-Host "Not detected - is it plugged in?" -ForegroundColor Red
 }
 
 Write-Host ""
@@ -70,12 +70,12 @@ Write-Host "==================================================" -ForegroundColor
 $bothWorking = ($netgear.Status -eq 'OK') -and ($tplink.Status -eq 'OK')
 
 if ($bothWorking) {
-    Write-Host "✓ Both WiFi adapters working!" -ForegroundColor Green
+    Write-Host "Both WiFi adapters working!" -ForegroundColor Green
     Write-Host ""
     Write-Host "You're ready to run the sleep/wake fixes." -ForegroundColor Cyan
     Write-Host "NEXT: Run .\RUN_ALL_FIXES.ps1" -ForegroundColor Yellow
 } else {
-    Write-Host "⚠ One or more adapters need attention" -ForegroundColor Yellow
+    Write-Host "One or more adapters need attention" -ForegroundColor Yellow
     Write-Host ""
     Write-Host "Fix adapter issues first, then run sleep/wake fixes." -ForegroundColor White
 }

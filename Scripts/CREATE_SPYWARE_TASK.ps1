@@ -1,9 +1,9 @@
-# CREATE SCHEDULED TASK - AUTOMATED SPYWARE CHECK
+﻿# CREATE SCHEDULED TASK - AUTOMATED SPYWARE CHECK
 # Run as Administrator
 
-Write-Host "════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "------------------------------------------------------------" -ForegroundColor Cyan
 Write-Host "CREATE AUTOMATED SPYWARE CHECK TASK" -ForegroundColor Cyan
-Write-Host "════════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "------------------------------------------------------------" -ForegroundColor Cyan
 Write-Host ""
 
 # Auto-detect script directory
@@ -80,7 +80,7 @@ $task = Register-ScheduledTask `
 
 if ($task) {
     Write-Host ""
-    Write-Host "✓ Scheduled task created successfully!" -ForegroundColor Green
+    Write-Host "Scheduled task created successfully!" -ForegroundColor Green
     Write-Host ""
     Write-Host "Task details:" -ForegroundColor Cyan
     Write-Host "  Name: $taskName" -ForegroundColor White
@@ -89,10 +89,10 @@ if ($task) {
     Write-Host "  Status: $($task.State)" -ForegroundColor White
     Write-Host ""
     Write-Host "The task will:" -ForegroundColor Yellow
-    Write-Host "  • Check if spyware services have been re-enabled" -ForegroundColor White
-    Write-Host "  • Automatically disable them if found" -ForegroundColor White
-    Write-Host "  • Create log in %TEMP% folder" -ForegroundColor White
-    Write-Host "  • Run silently in background" -ForegroundColor White
+    Write-Host "Check if spyware services have been re-enabled" -ForegroundColor White
+    Write-Host "Automatically disable them if found" -ForegroundColor White
+    Write-Host "Create log in %TEMP% folder" -ForegroundColor White
+    Write-Host "Run silently in background" -ForegroundColor White
     Write-Host ""
     
     # Test run option
@@ -118,18 +118,18 @@ if ($task) {
         }
     }
 } else {
-    Write-Host "✗ Failed to create scheduled task" -ForegroundColor Red
+    Write-Host "Failed to create scheduled task" -ForegroundColor Red
 }
 
 Write-Host ""
-Write-Host "════════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host "TASK SETUP COMPLETE" -ForegroundColor Green
-Write-Host "════════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host ""
 Write-Host "To manage this task:" -ForegroundColor Cyan
-Write-Host "  • Open: Task Scheduler (taskschd.msc)" -ForegroundColor White
-Write-Host "  • Navigate to: Task Scheduler Library" -ForegroundColor White
-Write-Host "  • Find: $taskName" -ForegroundColor White
+Write-Host "Open: Task Scheduler (taskschd.msc)" -ForegroundColor White
+Write-Host "Navigate to: Task Scheduler Library" -ForegroundColor White
+Write-Host "Find: $taskName" -ForegroundColor White
 Write-Host ""
 Write-Host "To remove this task:" -ForegroundColor Cyan
 Write-Host "  Unregister-ScheduledTask -TaskName '$taskName' -Confirm:`$false" -ForegroundColor White

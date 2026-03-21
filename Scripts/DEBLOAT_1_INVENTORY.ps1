@@ -1,12 +1,12 @@
-# Auto-detect script directory
+﻿# Auto-detect script directory
 if (-not $PSScriptRoot) {
     $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 }
 # PHASE 1: INVENTORY CURRENT BLOAT
 
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "------------------------------------------------------------" -ForegroundColor Cyan
 Write-Host "PHASE 1: BLOATWARE INVENTORY" -ForegroundColor Cyan
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
+Write-Host "------------------------------------------------------------" -ForegroundColor Cyan
 Write-Host ""
 
 Write-Host "[1/3] Scanning installed AppX packages..." -ForegroundColor Yellow
@@ -33,11 +33,13 @@ $telemetryServices | Select-Object Name, DisplayName, Status | Format-Table -Aut
 
 Write-Host ""
 Write-Host "[3/3] Exporting inventory..." -ForegroundColor Yellow
-$apps | Export-Csv ".\bloatware_inventory.csv" -NoTypeInformation
-$telemetryServices | Export-Csv ".\telemetry_services.csv" -NoTypeInformation
+$apps | Export-Csv "$PSScriptRoot\bloatware_inventory.csv" -NoTypeInformation
+$telemetryServices | Export-Csv "$PSScriptRoot\telemetry_services.csv" -NoTypeInformation
 
-Write-Host "✓ Inventory saved to HQ" -ForegroundColor Green
+Write-Host "Inventory saved to HQ" -ForegroundColor Green
 Write-Host ""
 Write-Host "Review files before proceeding to removal!" -ForegroundColor Yellow
 
-
+Write-Host "" 
+Write-Host "Press any key to close..." -ForegroundColor Gray
+pause

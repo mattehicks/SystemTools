@@ -1,10 +1,10 @@
-# BLOCK MICROSOFT TELEMETRY DOMAINS
+﻿# BLOCK MICROSOFT TELEMETRY DOMAINS
 # Phase 5: Add telemetry domains to hosts file (redirects to 0.0.0.0)
 # Run with TrustedInstaller
 
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host "PHASE 5: BLOCK TELEMETRY DOMAINS (HOSTS FILE)" -ForegroundColor Red
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host ""
 
 $hostsFile = "C:\Windows\System32\drivers\etc\hosts"
@@ -14,9 +14,9 @@ $backupFile = "C:\Windows\System32\drivers\etc\hosts.backup"
 Write-Host "[1/3] Backing up hosts file..." -ForegroundColor Yellow
 if (-not (Test-Path $backupFile)) {
     Copy-Item $hostsFile $backupFile -Force
-    Write-Host "✓ Backup created: $backupFile" -ForegroundColor Green
+    Write-Host "Backup created: $backupFile" -ForegroundColor Green
 } else {
-    Write-Host "✓ Backup already exists" -ForegroundColor Green
+    Write-Host "Backup already exists" -ForegroundColor Green
 }
 Write-Host ""
 
@@ -133,7 +133,7 @@ if ($newEntries.Count -gt 0) {
     }
     
     Write-Host ""
-    Write-Host "✓ Added $($newEntries.Count) domains to hosts file" -ForegroundColor Green
+    Write-Host "Added $($newEntries.Count) domains to hosts file" -ForegroundColor Green
 } else {
     Write-Host "[3/3] All domains already blocked" -ForegroundColor Green
 }
@@ -141,21 +141,21 @@ if ($newEntries.Count -gt 0) {
 Write-Host ""
 Write-Host "[4/4] Flushing DNS cache..." -ForegroundColor Yellow
 ipconfig /flushdns | Out-Null
-Write-Host "✓ DNS cache flushed" -ForegroundColor Green
+Write-Host "DNS cache flushed" -ForegroundColor Green
 
 Write-Host ""
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host "TELEMETRY DOMAINS BLOCKED" -ForegroundColor Green
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host ""
 Write-Host "Total blocked:   $($telemetryDomains.Count) domains" -ForegroundColor Red
 Write-Host "Backup location: $backupFile" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Microsoft can no longer:" -ForegroundColor Yellow
-Write-Host "  ✓ Send telemetry data" -ForegroundColor White
-Write-Host "  ✓ Track your usage" -ForegroundColor White
-Write-Host "  ✓ Collect diagnostics" -ForegroundColor White
-Write-Host "  ✓ Send advertising IDs" -ForegroundColor White
-Write-Host "  ✓ Sync activity data" -ForegroundColor White
+Write-Host "Send telemetry data" -ForegroundColor White
+Write-Host "Track your usage" -ForegroundColor White
+Write-Host "Collect diagnostics" -ForegroundColor White
+Write-Host "Send advertising IDs" -ForegroundColor White
+Write-Host "Sync activity data" -ForegroundColor White
 Write-Host ""
 pause

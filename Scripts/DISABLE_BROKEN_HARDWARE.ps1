@@ -1,5 +1,5 @@
-# ============================================================================
-# Disable Broken Network Hardware (Win11 → Win10 downgrade casualties)
+﻿# ============================================================================
+# Disable Broken Network Hardware (Win11  Win10 downgrade casualties)
 # Run this BEFORE the sleep fix scripts
 # ============================================================================
 
@@ -30,10 +30,10 @@ if ($killerWifi) {
     Write-Host "      Disabling: $($killerWifi.FriendlyName)" -ForegroundColor Yellow
     try {
         Disable-PnpDevice -InstanceId $killerWifi.InstanceId -Confirm:$false
-        Write-Host "      ✓ Disabled" -ForegroundColor Green
+        Write-Host "Disabled" -ForegroundColor Green
         $disabled++
     } catch {
-        Write-Host "      ✗ Failed to disable" -ForegroundColor Red
+        Write-Host "Failed to disable" -ForegroundColor Red
     }
 } else {
     Write-Host "[1/2] Killer WiFi not found (may already be disabled)" -ForegroundColor Gray
@@ -46,10 +46,10 @@ if ($realtekEth) {
     Write-Host "      Disabling: $($realtekEth.FriendlyName)" -ForegroundColor Yellow
     try {
         Disable-PnpDevice -InstanceId $realtekEth.InstanceId -Confirm:$false
-        Write-Host "      ✓ Disabled" -ForegroundColor Green
+        Write-Host "Disabled" -ForegroundColor Green
         $disabled++
     } catch {
-        Write-Host "      ✗ Failed to disable" -ForegroundColor Red
+        Write-Host "Failed to disable" -ForegroundColor Red
     }
 } else {
     Write-Host "[2/2] Realtek Ethernet not found (may already be disabled)" -ForegroundColor Gray

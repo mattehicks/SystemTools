@@ -1,4 +1,4 @@
-# AUTOMATED SPYWARE CHECK & RE-KILL
+﻿# AUTOMATED SPYWARE CHECK & RE-KILL
 # For scheduled task execution (no user input required)
 
 $logPath = Join-Path $env:TEMP "SpywareCheck_$(Get-Date -Format 'yyyyMMdd_HHmmss').log"
@@ -59,3 +59,7 @@ if ($fixed -eq 0) {
 Write-Host "Log: $logPath" -ForegroundColor Gray
 $log | Out-File -FilePath $logPath -Force
 exit $exitCode
+
+Write-Host "" 
+Write-Host "Press any key to close..." -ForegroundColor Gray
+pause

@@ -1,10 +1,10 @@
-# DISABLE SPYWARE SERVICES
+﻿# DISABLE SPYWARE SERVICES
 # Phase 4: Stop all Microsoft telemetry/tracking services
 # Run with TrustedInstaller
 
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host "PHASE 4: DISABLE SPYWARE SERVICES" -ForegroundColor Red
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Red
+Write-Host "------------------------------------------------------------" -ForegroundColor Red
 Write-Host ""
 
 # Complete list of spyware/telemetry services
@@ -72,9 +72,9 @@ foreach ($serviceName in $servicesToDisable) {
 }
 
 Write-Host ""
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host "SERVICE DISABLING COMPLETE" -ForegroundColor Green
-Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+Write-Host "------------------------------------------------------------" -ForegroundColor Green
 Write-Host ""
 Write-Host "Newly disabled:      $disabled" -ForegroundColor Red
 Write-Host "Already disabled:    $alreadyDisabled" -ForegroundColor Gray

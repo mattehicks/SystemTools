@@ -1,4 +1,4 @@
-# ============================================================================
+﻿# ============================================================================
 # USB Device Cleanup Script - UPDATED FOR DUAL WIFI SETUP
 # IMPORTANT: Keep BOTH WiFi dongles plugged in during cleanup!
 # This will remove ghost/unknown USB devices while protecting your network
@@ -41,8 +41,8 @@ $netgear = Get-PnpDevice | Where-Object {$_.InstanceId -match 'VID_0846&PID_9052
 $tplink = Get-PnpDevice | Where-Object {$_.InstanceId -match 'VID_2357&PID_011E'}
 
 Write-Host "Protected devices (will NOT remove):" -ForegroundColor Green
-if ($netgear) { Write-Host "  ✓ $($netgear.FriendlyName)" -ForegroundColor Gray }
-if ($tplink) { Write-Host "  ✓ $($tplink.FriendlyName)" -ForegroundColor Gray }
+if ($netgear) { Write-Host "   $($netgear.FriendlyName)" -ForegroundColor Gray }
+if ($tplink) { Write-Host "   $($tplink.FriendlyName)" -ForegroundColor Gray }
 Write-Host ""
 
 # Find problem devices EXCLUDING the WiFi dongles
@@ -52,3 +52,54 @@ $problemDevices = Get-PnpDevice | Where-Object {
     ($_.InstanceId -ne $netgear.InstanceId) -and
     ($_.InstanceId -ne $tplink.InstanceId)
 }
+
+if ($problemDevices.Count -eq 0) {
+    Write-Host "No problematic USB devices found. System is clean!" -ForegroundColor Green
+} else {
+    Write-Host "Found $($problemDevices.Count) problematic USB device(s):" -ForegroundColor Red
+    Write-Host ""
+    foreach ($dev in $problemDevices) {
+        Write-Host "  [$($dev.Status)] $($dev.FriendlyName) ($($dev.InstanceId))" -ForegroundColor Yellow
+    }
+    Write-Host ""
+
+    $removeConfirm = Read-Host "Remove these devices? (YES/no)"
+    if ($removeConfirm -eq "YES") {
+        $removed = 0
+        $failed = 0
+        foreach ($dev in $problemDevices) {
+            try {
+                Write-Host "  Removing: $($dev.FriendlyName)..." -ForegroundColor Red -NoNewline
+                pnputil /remove-device "$($dev.InstanceId)" /force 2>$null | Out-Null
+                if ($LASTEXITCODE -eq 0) {
+                    Write-Host " Done" -ForegroundColor Green
+                    $removed++
+                } else {
+                    Disable-PnpDevice -InstanceId $dev.InstanceId -Confirm:$false -ErrorAction SilentlyContinue
+                    Write-Host " Disabled (couldn't remove)" -ForegroundColor Yellow
+                    $removed++
+                }
+            } catch {
+                Write-Host " FAILED: $($_.Exception.Message)" -ForegroundColor Red
+                $failed++
+            }
+        }
+
+        Write-Host ""
+        Write-Host "USB Cleanup Results" -ForegroundColor Green
+        Write-Host "  Removed/Disabled: $removed" -ForegroundColor Green
+        Write-Host "  Failed:           $failed" -ForegroundColor Red
+    } else {
+        Write-Host "Skipped removal." -ForegroundColor Yellow
+    }
+}
+
+Write-Host ""
+Write-Host "Remaining problem devices:" -ForegroundColor Cyan
+$remaining = (Get-PnpDevice | Where-Object {
+    ($_.Class -match 'USB|HIDClass|USBDevice') -and
+    ($_.Status -eq 'Unknown' -or $_.Status -eq 'Error')
+}).Count
+Write-Host "  $remaining device(s) with Unknown/Error status" -ForegroundColor $(if ($remaining -eq 0) {'Green'} else {'Yellow'})
+Write-Host ""
+pause
